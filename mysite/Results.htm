@@ -21,8 +21,10 @@
 						<td>
 							<table>
 								<tr>								
-								<td>
-									{{ Test|safe  }}									
+								<td>{% autoescape off %}
+									{{ Test|safe  }}	
+{% endautoescape %}
+									
 								</td>
 								</tr>
 							</table>
