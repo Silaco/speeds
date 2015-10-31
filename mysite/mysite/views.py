@@ -61,7 +61,7 @@ def get(request):
 			# print ret
 
 			template=loader.get_template('Results.htm')
-			context=Context({'Test':ret.replace('\n','</BR>')})
+			context=Context({'Test':ret.replace('\n','<BR/>')})
 			return HttpResponse(template.render(context))
 		else:
 			return render(request, 'Login.htm')
