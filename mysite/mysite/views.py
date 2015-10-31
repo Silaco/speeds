@@ -22,7 +22,7 @@ class CurrentClass(View):
 		context=Context({'Test':1})
 		return HttpResponse(template.render(context))
 
-class Simple(View):		
+class AnsibleInvoke(View):		
 	def search_form(request):
 		return render(request, 'search_form.htm')
 	def search(request):
@@ -47,8 +47,8 @@ class Simple(View):
 			message = 'You submitted an empty form.'
 		return HttpResponse(message)
 		
-class AnsibleInvoke(View):		
-	def get(request):
+class Simple(View):		
+	def search_form(request):
 		
 		# import ansible.runner
 
