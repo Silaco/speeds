@@ -14,8 +14,23 @@ class MyView(View):
 		conn.close()			
 		return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
-class AnsibleInvoke1(View):
-	def get(self, request, *args, **kwargs):		
+def Login(request):	
+	# template=loader.get_template('Login.htm')	
+	return render(request, 'Login.htm')
+
+def index(request):	
+	return render(request, 'Login.htm')
+def login(request):
+	if request.session.test_cookie_worked():
+		return render(request, 'Hosts.htm')
+	if 'user' in request.POST:
+		name=request.POST['user']
+		pwd=request.POST['pwd']
+		request.session.set_test_cookie()
+	else:
+		message = 'You submitted an empty form.'
+	return HttpResponse(message)
+def get(request):		
 		import jinja2
 		from tempfile import NamedTemporaryFile
 		import os
@@ -23,7 +38,6 @@ class AnsibleInvoke1(View):
 		[current]
 		{{ public_ip_address }}
 		"""
-
 		inventory_template = jinja2.Template(inventory)
 		rendered_inventory = inventory_template.render({
 			'public_ip_address': '111.222.333.444'    
