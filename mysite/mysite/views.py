@@ -30,7 +30,7 @@ def login(request):
 		name=request.POST['user']
 		pwd=request.POST['pwd']
 		request.session.set_test_cookie()
-		message = 'Hello User'
+		message = 'Hello '+name
 	else:
 		message = 'You submitted an empty form.'
 	return HttpResponse(message)
