@@ -67,9 +67,9 @@ class AnsibleInvoke(View):
 		# for (hostname, result) in results['contacted'].items():			
 			# html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
 		
-		return HttpResponse('<table>%s</table>' % '\n'.join(html))
+		# return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
-		# return render(request, 'search_form.htm')
+		return render(request, 'search_form.htm')
 	def search(request):
 		if 'id' in request.GET:
 			name=request.GET['name']
