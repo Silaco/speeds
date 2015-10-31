@@ -17,20 +17,13 @@ runner_cb = callbacks.PlaybookRunnerCallbacks(stats, verbose=utils.VERBOSITY)
 # We fake a inventory file and let Ansible load if it's a real file.
 # Just don't tell Ansible that, so we don't hurt its feelings.
 inventory = """
-[customer]
+[current]
 {{ public_ip_address }}
-
-[customer:vars]
-domain={{ domain_name }}
-customer_id={{ customer_id }}
-customer_name={{ customer_name }}
-customer_email={{ customer_email }}
 """
 
 inventory_template = jinja2.Template(inventory)
 rendered_inventory = inventory_template.render({
-    'public_ip_address': '111.222.333.444',
-    'domain_name': 'some.domainname.com'
+    'public_ip_address': '111.222.333.444'    
     # and the rest of our variables
 })
 
@@ -40,9 +33,8 @@ hosts.write(rendered_inventory)
 hosts.close()
 
 pb = PlayBook(
-    playbook='/path/to/main/playbook.yml',
-    host_list=hosts.name,     # Our hosts, the rendered inventory file
-    remote_user='some_user',
+    playbook='/home/ec2-user/hack/speeds/mysite/py.yaml',
+    host_list=hosts.name,     # Our hosts, the rendered inventory file    
     callbacks=playbook_cb,
     runner_callbacks=runner_cb,
     stats=stats,
