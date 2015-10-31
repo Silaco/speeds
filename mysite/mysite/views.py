@@ -19,6 +19,8 @@ def Login(request):
 	return render(request, 'Login.htm')
 
 def index(request):	
+	if request.session.test_cookie_worked():
+		return render(request, 'Hosts.htm')
 	return render(request, 'Login.htm')
 def login(request):
 	message = 'You submitted an empty form.'
@@ -34,29 +36,32 @@ def login(request):
 	else:
 		message = 'You submitted an empty form.'
 	return HttpResponse(message)
-def get(request):		
-		import jinja2
-		from tempfile import NamedTemporaryFile
-		import os
-		inventory = """
-		[current]
-		{{ public_ip_address }}
-		"""
-		inventory_template = jinja2.Template(inventory)
-		rendered_inventory = inventory_template.render({
-			'public_ip_address': '111.222.333.444'    
-			# and the rest of our variables
-		})
+def get(request):
+		if request.session.test_cookie_worked():			
+			import jinja2
+			from tempfile import NamedTemporaryFile
+			import os
+			inventory = """
+			[current]
+			{{ public_ip_address }}
+			"""
+			inventory_template = jinja2.Template(inventory)
+			rendered_inventory = inventory_template.render({
+				'public_ip_address': '111.222.333.444'    
+				# and the rest of our variables
+			})
 
-		# Create a temporary file and write the template string to it
-		hosts = NamedTemporaryFile(delete=False)
-		hosts.write(rendered_inventory)
-		hosts.close()
-		import commands
-		ret = commands.getoutput("ansible-playbook /home/ec2-user/hack/speeds/mysite/py.yaml -i "+hosts.name)
-		# print ret
+			# Create a temporary file and write the template string to it
+			hosts = NamedTemporaryFile(delete=False)
+			hosts.write(rendered_inventory)
+			hosts.close()
+			import commands
+			ret = commands.getoutput("ansible-playbook /home/ec2-user/hack/speeds/mysite/py.yaml -i "+hosts.name)
+			# print ret
 
-		return HttpResponse(ret.replace('\n','</BR>'))
+			return HttpResponse(ret.replace('\n','</BR>'))
+		else:
+			return render(request, 'Login.htm')
 
 
 class CurrentClass(View):
