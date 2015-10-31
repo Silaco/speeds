@@ -37,7 +37,8 @@ class AnsibleInvoke1(View):
 		import commands
 		ret = commands.getoutput("ansible-playbook /home/ec2-user/hack/speeds/mysite/py.yaml -i "+hosts.name)
 		# print ret
-		return HttpResponse(ret)
+
+		return HttpResponse(ret.replace('\n','</BR>'))
 
 
 class CurrentClass(View):
