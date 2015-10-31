@@ -55,7 +55,7 @@ class AnsibleInvoke(View):
 		runner = ansible.runner.Runner(
 		   module_name='ping',
 		   module_args='',
-		   pattern='web*',
+		   pattern='*',
 		   forks=10
 		)
 		datastructure = runner.run()
