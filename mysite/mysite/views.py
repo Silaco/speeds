@@ -22,9 +22,26 @@ class CurrentClass(View):
 		context=Context({'Test':1})
 		return HttpResponse(template.render(context))
 
-class AnsibleInvoke(View):		
-	def get(request):
-		return render(request, 'search_form.htm')
+class Simple(View):		
+	def search_form(request):
+		import ansible.runner
+
+		runner = ansible.runner.Runner(
+		   module_name='ping',
+		   module_args='',
+		   pattern='*',
+		   forks=10
+		)
+		results=runner.run()
+		
+		html = []
+		
+		html.append('<tr><td>Value</td><td>'++'</td></tr>')
+		
+		for (hostname, result) in results['contacted'].items():			
+			html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
+		
+		return HttpResponse('<table>%s</table>' % '\n'.join(html))
 	def search(request):
 		if 'id' in request.GET:
 			name=request.GET['name']
@@ -47,8 +64,8 @@ class AnsibleInvoke(View):
 			message = 'You submitted an empty form.'
 		return HttpResponse(message)
 		
-class Simple(View):		
-	def search_form(request):
+
+	def get(request):
 		
 		# import ansible.runner
 
