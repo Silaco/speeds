@@ -23,7 +23,7 @@ class CurrentClass(View):
 		return HttpResponse(template.render(context))
 
 class AnsibleInvoke(View):		
-	def search_form(request):
+	def get(request):
 		return render(request, 'search_form.htm')
 	def search(request):
 		if 'id' in request.GET:
