@@ -58,7 +58,7 @@ class AnsibleInvoke(View):
 		   pattern='*',
 		   forks=10
 		)
-		datastructure = runner.run()
+		results=runner.run()
 		
 		html = []
 		
