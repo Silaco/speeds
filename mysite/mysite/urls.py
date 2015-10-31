@@ -4,6 +4,7 @@ from mysite.views import MyView
 from mysite.views import CurrentClass
 from mysite.views import Simple
 from mysite.views import AnsibleInvoke
+from mysite.views import AnsibleInvoke1
 
 
 urlpatterns = [
