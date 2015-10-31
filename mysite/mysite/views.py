@@ -14,6 +14,24 @@ class MyView(View):
 		conn.close()			
 		return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
+class AnsibleInvoke1(View):
+	def get(self, request, *args, **kwargs):		
+		import ansible.runner
+
+		runner = ansible.runner.Runner(
+		   module_name='ping',
+		   module_args='',
+		   pattern='web*',
+		   forks=10
+		)
+		datastructure = runner.run()
+		
+		html = []
+		for row in cursor:
+			html.append('<tr><td>'+str(row[0])+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+str(row[3])+'</td></tr>')
+		# conn.close()			
+		return HttpResponse('<table>%s</table>' % '\n'.join(html))
+
 class CurrentClass(View):
 	def get(self, request, *args, **kwargs):	
 		import os.path
@@ -63,7 +81,7 @@ class AnsibleInvoke(View):
 		html = []
 		for row in cursor:
 			html.append('<tr><td>'+str(row[0])+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+str(row[3])+'</td></tr>')
-		conn.close()			
+		# conn.close()			
 		return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
 		return render(request, 'search_form.htm')
