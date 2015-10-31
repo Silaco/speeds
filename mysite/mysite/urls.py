@@ -3,7 +3,7 @@ from django.conf.urls import url
 from mysite.views import MyView
 from mysite.views import CurrentClass
 from mysite.views import Simple
-AnsibleInvoke
+from mysite.views import AnsibleInvoke
 
 
 urlpatterns = [
