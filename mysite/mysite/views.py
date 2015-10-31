@@ -16,10 +16,28 @@ class MyView(View):
 
 class AnsibleInvoke1(View):
 	def get(self, request, *args, **kwargs):		
+		import jinja2
+		from tempfile import NamedTemporaryFile
 		import os
-		data=os.system("ansible-playbook /home/ec2-user/hack/speeds/mysite/py.yaml -i hosts")
-		
-		return HttpResponse(data)
+		inventory = """
+		[current]
+		{{ public_ip_address }}
+		"""
+
+		inventory_template = jinja2.Template(inventory)
+		rendered_inventory = inventory_template.render({
+			'public_ip_address': '111.222.333.444'    
+			# and the rest of our variables
+		})
+
+		# Create a temporary file and write the template string to it
+		hosts = NamedTemporaryFile(delete=False)
+		hosts.write(rendered_inventory)
+		hosts.close()
+		import commands
+		ret = commands.getoutput("ansible-playbook /home/ec2-user/hack/speeds/mysite/py.yaml -i "+hosts.name)
+		# print ret
+		return HttpResponse(ret)
 
 
 class CurrentClass(View):
