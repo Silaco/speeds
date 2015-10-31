@@ -48,7 +48,7 @@ class Simple(View):
 		return HttpResponse(message)
 		
 class AnsibleInvoke(View):		
-	def Invoke(request):
+	def get(request):
 		
 		import ansible.runner
 
