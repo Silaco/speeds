@@ -46,3 +46,48 @@ class Simple(View):
 		else:
 			message = 'You submitted an empty form.'
 		return HttpResponse(message)
+		
+class AnsibleInvoke(View):		
+	def Invoke(request):
+		
+		import ansible.runner
+
+		runner = ansible.runner.Runner(
+		   module_name='ping',
+		   module_args='',
+		   pattern='web*',
+		   forks=10
+		)
+		datastructure = runner.run()
+		
+		html = []
+		
+		html.append('<tr><td>Value</td><td>'++'</td></tr>')
+		
+		for (hostname, result) in results['contacted'].items():			
+			html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
+		
+		return HttpResponse('<table>%s</table>' % '\n'.join(html))
+
+		return render(request, 'search_form.htm')
+	def search(request):
+		if 'id' in request.GET:
+			name=request.GET['name']
+			id=request.GET['id']
+			address=request.GET['address']
+			salary=request.GET['salary']	
+			
+			# conn = sqlite3.connect('test.db')
+			
+			# conn.execute();
+			
+			sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES ("+id+", '"+name+"', 32, '"+address+"', "+salary+" )"
+			
+			conn = sqlite3.connect('test.db')
+			
+			conn.execute(sql);
+			conn.commit();
+			message = sql
+		else:
+			message = 'You submitted an empty form.'
+		return HttpResponse(message)
