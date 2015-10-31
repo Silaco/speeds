@@ -26,13 +26,13 @@ import ansible.runner
 
 class Simple(View):		
 	def search_form(request):
-		results = ansible.runner.Runner(
-		   module_name='ping',
-		   module_args='',
-		   pattern='*',
-		   forks=10
-		).run()
-		results=runner.run()
+		# results = ansible.runner.Runner(
+		   # module_name='ping',
+		   # module_args='',
+		   # pattern='*',
+		   # forks=10
+		# ).run()
+		# results=runner.run()
 		
 		# html = []
 		
