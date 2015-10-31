@@ -50,26 +50,26 @@ class Simple(View):
 class AnsibleInvoke(View):		
 	def get(request):
 		
-		import ansible.runner
+		# import ansible.runner
 
-		runner = ansible.runner.Runner(
-		   module_name='ping',
-		   module_args='',
-		   pattern='*',
-		   forks=10
-		)
-		results=runner.run()
+		# runner = ansible.runner.Runner(
+		   # module_name='ping',
+		   # module_args='',
+		   # pattern='*',
+		   # forks=10
+		# )
+		# results=runner.run()
 		
-		html = []
+		# html = []
 		
-		html.append('<tr><td>Value</td><td>'++'</td></tr>')
+		# html.append('<tr><td>Value</td><td>'++'</td></tr>')
 		
-		for (hostname, result) in results['contacted'].items():			
-			html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
+		# for (hostname, result) in results['contacted'].items():			
+			# html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
 		
 		return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
-		return render(request, 'search_form.htm')
+		# return render(request, 'search_form.htm')
 	def search(request):
 		if 'id' in request.GET:
 			name=request.GET['name']
