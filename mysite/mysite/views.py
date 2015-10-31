@@ -36,6 +36,7 @@ def login(request):
 	else:
 		message = 'You submitted an empty form.'
 	return HttpResponse(message)
+	
 def get(request):
 		if request.session.test_cookie_worked():			
 			import jinja2
@@ -59,10 +60,12 @@ def get(request):
 			ret = commands.getoutput("ansible-playbook /home/ec2-user/hack/speeds/mysite/py.yaml -i "+hosts.name)
 			# print ret
 
-			return HttpResponse(ret.replace('\n','</BR>'))
+			template=loader.get_template('Results.htm')
+			context=Context({'Test':ret.replace('\n','</BR>')})
+			return HttpResponse(template.render(context))
 		else:
 			return render(request, 'Login.htm')
-
+			
 
 class CurrentClass(View):
 	def get(self, request, *args, **kwargs):	
