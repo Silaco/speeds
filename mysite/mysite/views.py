@@ -24,8 +24,8 @@ def index(request):
 	return render(request, 'Login.htm')
 def login(request):
 	message = 'You submitted an empty form.'
-	if request.session.test_cookie_worked():
-		return render(request, 'Hosts.htm')
+	# if request.session.test_cookie_worked():
+		# return render(request, 'Hosts.htm')
 	request.session.set_test_cookie()
 	
 	if 'user' in request.POST:
@@ -33,6 +33,7 @@ def login(request):
 		pwd=request.POST['pwd']
 		request.session.set_test_cookie()
 		message = 'Hello '+name
+		get(request)
 	else:
 		message = 'You submitted an empty form.'
 	return HttpResponse(message)
