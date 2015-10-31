@@ -49,9 +49,9 @@ class CurrentClass(View):
 		context=Context({'Test':1})
 		return HttpResponse(template.render(context))
 
-class Simple(View):		
-	def search_form(request):
-		return render(request, 'search_form.htm')
+class LoggedIn(View):		
+	def Login(request):
+		return render(request, 'Login.htm')
 	def search(request):
 		if 'id' in request.GET:
 			name=request.GET['name']
