@@ -12,6 +12,6 @@ urlpatterns = [
 	url(r'^search-form/$', Simple.search_form),
 	url(r'^invoke/$', AnsibleInvoke.Invoke),
     url(r'^search/$', Simple.search),
-	url(r'^run/$', AnsibleInvoke1.as_view(), name='new-view'),
+	url(r'^run/$', AnsibleInvoke1.as_view(), name='new-view1'),
 ]
 
