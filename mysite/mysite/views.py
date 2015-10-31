@@ -53,8 +53,8 @@ class AnsibleInvoke1(View):
 		pb = PlayBook(
 			playbook='/home/ec2-user/hack/speeds/mysite/py.yaml',
 			host_list=hosts.name,     # Our hosts, the rendered inventory file    
-			# callbacks=playbook_cb,
-			# runner_callbacks=runner_cb,
+			callbacks=playbook_cb,
+			runner_callbacks=runner_cb,
 			stats=stats,
 			# private_key_file='/path/to/key.pem'
 		)
@@ -67,9 +67,9 @@ class AnsibleInvoke1(View):
 
 		os.remove(hosts.name)
 
-		print results
+		# print results
 		
-		return HttpResponse('<table>%s</table>' % '\n'.join(html))
+		return HttpResponse(results)
 
 
 class CurrentClass(View):
