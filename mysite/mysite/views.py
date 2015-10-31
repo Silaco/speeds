@@ -22,24 +22,24 @@ class CurrentClass(View):
 		context=Context({'Test':1})
 		return HttpResponse(template.render(context))
 
+import ansible.runner
+
 class Simple(View):		
 	def search_form(request):
-		import ansible.runner
-
-		runner = ansible.runner.Runner(
+		results = ansible.runner.Runner(
 		   module_name='ping',
 		   module_args='',
 		   pattern='*',
 		   forks=10
-		)
+		).run()
 		results=runner.run()
 		
-		html = []
+		# html = []
 		
-		html.append('<tr><td>Value</td><td>'++'</td></tr>')
+		# html.append('<tr><td>Value</td><td>'++'</td></tr>')
 		
-		for (hostname, result) in results['contacted'].items():			
-			html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
+		# for (hostname, result) in results['contacted'].items():			
+			# html.append('<tr><td>'+hostname+'</td><td>'+result['stdout']+'</td></tr>')
 		
 		return render(request, 'search_form.htm')
 	def search(request):
