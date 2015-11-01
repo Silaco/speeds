@@ -23,11 +23,14 @@ def index(request):
 		return render(request, 'Hosts.htm')
 	return render(request, 'Login.htm')
 	
-def check(request):	
+def check(request):
+	try:
 	key = request.session['access_key']
 	age = request.session.get_expiry_age()
 	if age > 10:
 		index(request)
+	except:
+		return render(request, 'Hosts.htm')
 	template=loader.get_template('Run.htm')
 	a=range(1,100)
 	import os
