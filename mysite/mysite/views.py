@@ -43,8 +43,8 @@ def login(request):
 		
 		if name=='testuser' and pwd=='testpwd':
 			request.session.set_test_cookie()
-			message = 'Hello '+name
-			get(request)
+			return render(request, 'Hosts.htm')
+			# get(request)
 		message = 'Invalid.'
 	else:
 		message = 'You submitted an empty form.'
