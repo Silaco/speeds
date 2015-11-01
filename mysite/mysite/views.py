@@ -30,7 +30,7 @@ def check(request):
 		if age > 10:
 			index(request)
 	except:
-		return render(request, 'Hosts.htm')
+		return HttpResponse('error')
 	template=loader.get_template('Run.htm')
 	a=range(1,100)
 	import os
@@ -50,7 +50,7 @@ def login(request):
 		
 		if name=='testuser' and pwd=='testpwd':
 			request.session['access_key'] = name
-			request.session.set_expiry(4)
+			request.session.set_expiry(60)
 			return render(request, 'Hosts.htm')
 			# get(request)
 		message = 'Invalid.'

@@ -21,14 +21,31 @@
 						<td>
 							<table>
 								<tr>								
-								<td>
-								{ value }		{{ value  }}
+								<td>								
+								Select Playbook							
+								</td>
+								<td>								
 								<select> 
 									{% for a in Test %}										
 									<option value="{{ a  }}">{{ a  }}</option>									
 									{% endfor %}										
 								</select> 									
 								</td>
+								</tr>
+								<tr>								
+								<td>								
+								Select Environment							
+								</td>
+								<td>								
+								<select> 
+									{% for a in Test %}										
+									<option value="{{ a  }}">{{ a  }}</option>									
+									{% endfor %}										
+								</select> 									
+								</td>
+								</tr>
+								<tr>
+								<td></td><td><input type="submit" value="category"></td>
 								</tr>
 							</table>
 						</td>
