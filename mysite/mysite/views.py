@@ -98,7 +98,7 @@ def saveHost(request):
 		message = 'Name : '+Name
 	else:
 		message = 'You submitted an empty form.'
-	return HttpResponse(message)
+	return home(request)
 	
 def get(request):
 	try:
