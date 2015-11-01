@@ -41,7 +41,7 @@ def login(request):
 		name=request.POST['user']
 		pwd=request.POST['pwd']
 		
-		if name=='testuser' && pwd='testpwd':
+		if name=='testuser' and pwd=='testpwd':
 			request.session.set_test_cookie()
 			message = 'Hello '+name
 			get(request)
