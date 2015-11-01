@@ -75,7 +75,7 @@ def saveHost(request):
 			# # get(request)
 		# message = 'Invalid.'
 	else:
-		# message = 'You submitted an empty form.'
+		message = 'You submitted an empty form.'
 	return HttpResponse(message)
 	
 def get(request):
