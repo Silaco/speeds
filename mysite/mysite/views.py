@@ -7,9 +7,7 @@ import sqlite3
 def Login(request):		
 	return render(request, 'Login.htm')
 
-def index(request):	
-	if request.session.test_cookie_worked():
-		return render(request, 'Hosts.htm')
+def index(request):		
 	return render(request, 'Login.htm')
 
 def audit(request):
@@ -50,6 +48,19 @@ def check(request):
 	context=Context({'Test':os.listdir(name+"/mysite/playbooks/"),'value':html})
 	# return HttpResponse(template.render(context))
 	return render(request, 'Run.htm',context)
+
+def home(request):
+	try:
+		key = request.session['access_key']
+		age = request.session.get_expiry_age()
+		if age > 10:
+			index(request)
+	except:
+		Login(request)
+	
+	user=str(request.session['access_key'])
+	context=Context({'user': user})	
+	return render(request, 'home.htm',context)
 	
 def login(request):
 	message = 'You submitted an empty form.'
@@ -63,17 +74,13 @@ def login(request):
 			request.session.set_expiry(60)
 			# return render(request, 'Hosts.htm')
 			# return HttpResponse('Welcome :'+name)
-			# get(request)
-			check(request)
-		message = 'Invalid.'
-	else:
-		message = 'You submitted an empty form.'
-	# return HttpResponse(message)
+			# get(request)			
+	return home(request)
 	
 
 def Hosts(request):	
 	# template=loader.get_template('Hosts.htm')	
-	# return render(request, 'Hosts.htm')
+	 return render(request, 'Hosts.htm')
 	
 
 	
@@ -105,13 +112,26 @@ def get(request):
 	import jinja2
 	from tempfile import NamedTemporaryFile
 	import os
+	
+	playBook=request.GET['playBook']
+	Group=request.GET['Group']
+	
+	
+	cursor = conn.execute("SELECT NAME from HOSTS WHERE GROUPNAME='"+Group+"'")
+	html = ''
+	
 	inventory = """
 	[current]
 	{{ public_ip_address }}
 	"""
+	for row in cursor:
+		html=html+str(row[0]+'\n')
+	conn.close()		
+	
+	
 	inventory_template = jinja2.Template(inventory)
 	rendered_inventory = inventory_template.render({
-		'public_ip_address': 'localhost'    
+		'public_ip_address': html    
 		# and the rest of our variables
 	})
 
@@ -122,10 +142,10 @@ def get(request):
 	import commands
 	name=os.getcwd() 
 	name=name+"/mysite/playbooks/"
-	playBook=request.GET['playBook']
-	Group=request.GET['Group']
+	
 	name=name+playBook
 	ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
+	ret +="\n\n\nansible-playbook "+name+" -i "+hosts.name
 	# print ret
 	log=ret
 	from datetime import datetime
