@@ -26,7 +26,7 @@ rendered_inventory = inventory_template.render({
     'public_ip_address': '111.222.333.444'    
     # and the rest of our variables
 })
-
+	
 # Create a temporary file and write the template string to it
 hosts = NamedTemporaryFile(delete=False)
 hosts.write(rendered_inventory)
@@ -50,3 +50,8 @@ playbook_cb.on_stats(pb.stats)
 os.remove(hosts.name)
 
 print results
+
+
+from ansible.playbook import PlayBook
+pb = PlayBook(playbook='/home/ec2-user/hack/speeds/mysite/py.yaml')
+pb.run()

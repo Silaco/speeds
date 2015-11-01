@@ -58,6 +58,26 @@ def login(request):
 		message = 'You submitted an empty form.'
 	return HttpResponse(message)
 	
+def saveHost(request):
+	message = 'You submitted an empty form.'
+	# if request.session.test_cookie_worked():
+		# return render(request, 'Hosts.htm')
+	# request.session.set_test_cookie()
+	
+	if 'user' in request.POST:
+		name=request.POST['Name']
+		pwd=request.POST['Group']
+		
+		# if name=='testuser' and pwd=='testpwd':
+			# request.session['access_key'] = name
+			# request.session.set_expiry(60)
+			# return render(request, 'Hosts.htm')
+			# # get(request)
+		# message = 'Invalid.'
+	else:
+		# message = 'You submitted an empty form.'
+	return HttpResponse(message)
+	
 def get(request):
 		if request.session.test_cookie_worked():			
 			import jinja2

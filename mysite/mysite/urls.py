@@ -18,5 +18,7 @@ urlpatterns = [
 	url(r'^login/$', login, name='login-view11'),
 	url(r'^check/$', check, name='check'),
 	url(r'^', index, name='home'),
+	url(r'^saveHost/$', saveHost, name='SaveHost'),
+	
 ]
 
