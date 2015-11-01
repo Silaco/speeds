@@ -24,6 +24,10 @@ def index(request):
 	return render(request, 'Login.htm')
 	
 def check(request):	
+	key = request.session['access_key']
+	age = request.session.get_expiry_age()
+	if age > 10:
+		index(request)
 	template=loader.get_template('Run.htm')
 	a=range(1,100)
 	import os
@@ -42,7 +46,8 @@ def login(request):
 		pwd=request.POST['pwd']
 		
 		if name=='testuser' and pwd=='testpwd':
-			request.session.set_test_cookie()
+			request.session['access_key'] = name
+			request.session.set_expiry(4)
 			return render(request, 'Hosts.htm')
 			# get(request)
 		message = 'Invalid.'
