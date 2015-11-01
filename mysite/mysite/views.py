@@ -116,7 +116,7 @@ def get(request):
 	playBook=request.GET['playBook']
 	Group=request.GET['Group']
 	
-	
+	conn = sqlite3.connect('test.db')
 	cursor = conn.execute("SELECT NAME from HOSTS WHERE GROUPNAME='"+Group+"'")
 	html = ''
 	
