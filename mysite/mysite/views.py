@@ -4,18 +4,7 @@ from django.views.generic import View
 from django.shortcuts import render
 import sqlite3
 
-class MyView(View):
-	def get(self, request, *args, **kwargs):		
-		conn = sqlite3.connect('test.db')
-		cursor = conn.execute("SELECT id, name, address, salary  from COMPANY")
-		html = []
-		for row in cursor:
-			html.append('<tr><td>'+str(row[0])+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+str(row[3])+'</td></tr>')
-		conn.close()			
-		return HttpResponse('<table>%s</table>' % '\n'.join(html))
-
-def Login(request):	
-	# template=loader.get_template('Login.htm')	
+def Login(request):		
 	return render(request, 'Login.htm')
 
 def index(request):	
@@ -33,8 +22,6 @@ def audit(request):
 		html1.append(row[1])
 		html1.append(row[2])
 		html.append(html1)
-		
-	
 	data=cursor.fetchall()
 	context=Context({'Test':html,'row':data})
 	conn.close()		
@@ -49,7 +36,7 @@ def check(request):
 		if age > 10:
 			index(request)
 	except:
-		return HttpResponse('error')
+		Login(request)
 	template=loader.get_template('Run.htm')
 	a=range(1,100)
 	import os
@@ -62,7 +49,8 @@ def check(request):
 	conn.close()			
 	context=Context({'Test':os.listdir(name+"/mysite/playbooks/"),'value':html})
 	# return HttpResponse(template.render(context))
-	return render(request, 'Run.htm',context)	
+	return render(request, 'Run.htm',context)
+	
 def login(request):
 	message = 'You submitted an empty form.'
 	
@@ -74,22 +62,22 @@ def login(request):
 			request.session['access_key'] = name
 			request.session.set_expiry(60)
 			# return render(request, 'Hosts.htm')
-			return HttpResponse('Welcome :'+name)
+			# return HttpResponse('Welcome :'+name)
 			# get(request)
+			check(request)
 		message = 'Invalid.'
 	else:
 		message = 'You submitted an empty form.'
-	return HttpResponse(message)
+	# return HttpResponse(message)
+	
 
 def Hosts(request):	
 	# template=loader.get_template('Hosts.htm')	
-	return render(request, 'Hosts.htm')
-def saveHost(request):
-	message = 'You submitted an empty form.'
-	# if request.session.test_cookie_worked():
-		# return render(request, 'Hosts.htm')
-	# request.session.set_test_cookie()
+	# return render(request, 'Hosts.htm')
 	
+
+	
+def saveHost(request):
 	if 'Name' in request.POST:
 		Name=request.POST['Name']
 		Group=request.POST['Group']
