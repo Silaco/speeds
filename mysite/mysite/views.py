@@ -107,7 +107,7 @@ def get(request):
 		if age > 10:
 			index(request)
 	except:
-		return HttpResponse('error')
+		return home(request)
 		
 	import jinja2
 	from tempfile import NamedTemporaryFile
