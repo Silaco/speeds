@@ -5,7 +5,7 @@ from django.conf.urls import url
 # from mysite.views import Simple
 from mysite.views import LoggedIn
 # from mysite.views import AnsibleInvoke1
-from mysite.views import Login,get,login,index,check
+from mysite.views import Login,get,login,index,check,saveHost
 
 urlpatterns = [
     # url(r'^hello/$', MyView.as_view(), name='my-view'),
