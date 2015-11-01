@@ -1,0 +1,39 @@
+<html>
+	<body>
+		<form action="/Host/" method="post">
+		<table cellpadding='5' cellspacing='5' width='100%' style='background-color:gray'>
+			<tr>			
+			<td align='center'>
+				<table  cellpadding='5' cellspacing='5' width='95%'  style='background-color:white'>
+					<tr>
+						<td>
+						<h1>Host</h1>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+						<hr/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<table>
+								<tr>								
+								<td>{% for a in range(10)}
+									{{ a  }}	
+									{% endfor %}									
+								</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			</tr>			
+		</table>
+		</form>
+	</body>
+
+</html>
