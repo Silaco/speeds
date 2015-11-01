@@ -19,20 +19,23 @@
 					
 					<tr>
 						<td>
-							<table>
+							<table cellpadding='5' cellspacing='0' border='1'>
 								<tr>
-								<td>Name</td><td><input type="text" name="Name"></td>
-								</tr>
-								<tr>
-								<td>ID</td><td><input type="text" name="ID"></td>
-								</tr>
-								<tr>
-								<td>Env</td><td><input type="text" name="Env"></td>
-								</tr>
-								<tr>
-								<td></td><td><input type="submit" value="category"></td>
-								</tr>
+								
+								<th>USER</th>
+								<th>LOG</th>
+								<th>TRANSDATE</th>								
+								</tr>								
+								{% for a in Test %}										
+									<tr>
+									{% for b in a %}	
+									<td>{{ b }}</td>
+									{% endfor %}	
+									</tr>
+								{% endfor %}	
+									
 							</table>
+							
 						</td>
 					</tr>
 				</table>

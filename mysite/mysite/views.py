@@ -22,6 +22,25 @@ def index(request):
 	if request.session.test_cookie_worked():
 		return render(request, 'Hosts.htm')
 	return render(request, 'Login.htm')
+
+def audit(request):
+	conn = sqlite3.connect('test.db')
+	cursor = conn.execute("SELECT * from AUDIT")
+	html = []
+	for row in cursor:
+		html1 = []
+		html1.append(row[0])
+		html1.append(row[1])
+		html1.append(row[2])
+		html.append(html1)
+		
+	
+	data=cursor.fetchall()
+	context=Context({'Test':html,'row':data})
+	conn.close()		
+	
+	# return HttpResponse(html)
+	return render(request, 'Audit.htm',context)	
 	
 def check(request):
 	try:
@@ -115,8 +134,8 @@ def get(request):
 	import commands
 	name=os.getcwd() 
 	name=name+"/mysite/playbooks/"
-	playBook=request.POST['playBook']
-	Group=request.POST['Group']
+	playBook=request.GET['playBook']
+	Group=request.GET['Group']
 	name=name+playBook
 	ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
 	# print ret
