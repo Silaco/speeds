@@ -25,9 +25,9 @@
 								Select Playbook							
 								</td>
 								<td>								
-								<select> 
+								<select name="playBook"> 
 									{% for a in Test %}										
-									<option name="playBook" value="{{ a  }}">{{ a  }}</option>									
+									<option  value="{{ a  }}">{{ a  }}</option>									
 									{% endfor %}										
 								</select> 									
 								</td>
@@ -37,9 +37,9 @@
 								Select Environment							
 								</td>
 								<td>								
-								<select> 
+								<select name="Group" > 
 									{% for a in value %}										
-									<option name="Group" value="{{ a  }}">{{ a  }}</option>									
+									<option value="{{ a  }}">{{ a  }}</option>									
 									{% endfor %}										
 								</select> 									
 								</td>
