@@ -56,7 +56,7 @@ def home(request):
 		if age > 10:
 			index(request)
 	except:
-		Login(request)
+		return Login(request)
 	
 	user=str(request.session['access_key'])
 	context=Context({'user': user})	
