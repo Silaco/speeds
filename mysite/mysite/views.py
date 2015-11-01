@@ -115,9 +115,9 @@ def get(request):
 	import commands
 	name=os.getcwd() 
 	name=name+"/mysite/playbooks/"
-	Name=request.GET['Name']
+	playBook=request.GET['playBook']
 	Group=request.GET['Group']
-	name=name+Name
+	name=name+playBook
 	ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
 	# print ret
 	log=ret
