@@ -28,7 +28,7 @@ def check(request):
 	a=range(1,100)
 	import os
 	name=os.getcwd() 
-	context=Context({'Test':a,'value':name})
+	context=Context({'Test':os.listdir(os.curdir),'value':name})
 	return HttpResponse(template.render(context))
 	
 def login(request):
