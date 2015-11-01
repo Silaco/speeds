@@ -25,10 +25,10 @@ def index(request):
 	
 def check(request):
 	try:
-	key = request.session['access_key']
-	age = request.session.get_expiry_age()
-	if age > 10:
-		index(request)
+		key = request.session['access_key']
+		age = request.session.get_expiry_age()
+		if age > 10:
+			index(request)
 	except:
 		return render(request, 'Hosts.htm')
 	template=loader.get_template('Run.htm')
