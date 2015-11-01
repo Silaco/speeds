@@ -28,7 +28,7 @@ def check(request):
 	a=range(1,100)
 	import os
 	name=os.getcwd() 
-	context=Context({'Test':os.listdir(os.curdir+'\mysite\playbooks\'),'value':name})
+	context=Context({'Test':os.listdir(os.curdir+"\\mysite\\playbooks\\"),'value':name})
 	return HttpResponse(template.render(context))
 	
 def login(request):
