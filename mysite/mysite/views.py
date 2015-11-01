@@ -71,7 +71,7 @@ def login(request):
 		
 		if name=='testuser' and pwd=='testpwd':
 			request.session['access_key'] = name
-			request.session.set_expiry(60)
+			request.session.set_expiry(600)
 			# return render(request, 'Hosts.htm')
 			# return HttpResponse('Welcome :'+name)
 			# get(request)			
