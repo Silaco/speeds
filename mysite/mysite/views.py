@@ -95,48 +95,44 @@ def get(request):
 	except:
 		return HttpResponse('error')
 		
-		import jinja2
-		from tempfile import NamedTemporaryFile
-		import os
-		inventory = """
-		[current]
-		{{ public_ip_address }}
-		"""
-		inventory_template = jinja2.Template(inventory)
-		rendered_inventory = inventory_template.render({
-			'public_ip_address': 'localhost'    
-			# and the rest of our variables
-		})
+	import jinja2
+	from tempfile import NamedTemporaryFile
+	import os
+	inventory = """
+	[current]
+	{{ public_ip_address }}
+	"""
+	inventory_template = jinja2.Template(inventory)
+	rendered_inventory = inventory_template.render({
+		'public_ip_address': 'localhost'    
+		# and the rest of our variables
+	})
 
-		# Create a temporary file and write the template string to it
-		hosts = NamedTemporaryFile(delete=False)
-		hosts.write(rendered_inventory)
-		hosts.close()
-		import commands
-		name=os.getcwd() 
-		name=name+"/mysite/playbooks/"
-		Name=request.POST['Name']
-		Group=request.POST['Group']
-		name=name+Name
-		ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
-		# print ret
-		log=ret
-		from datetime import datetime
+	# Create a temporary file and write the template string to it
+	hosts = NamedTemporaryFile(delete=False)
+	hosts.write(rendered_inventory)
+	hosts.close()
+	import commands
+	name=os.getcwd() 
+	name=name+"/mysite/playbooks/"
+	Name=request.POST['Name']
+	Group=request.POST['Group']
+	name=name+Name
+	ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
+	# print ret
+	log=ret
+	from datetime import datetime
+	
+	sql = "INSERT INTO AUDIT (USER,LOG,TRANSDATE) VALUES ('"+request.session['access_key']+"','"+log+"','"+str(datetime.now())+"' )"
 		
-		sql = "INSERT INTO AUDIT (USER,LOG,TRANSDATE) VALUES ('"+request.session['access_key']+"','"+log+"','"+str(datetime.now())+"' )"
-			
-		conn = sqlite3.connect('test.db')
+	conn = sqlite3.connect('test.db')
 
-		conn.execute(sql);
-		conn.commit();
-		template=loader.get_template('Results.htm')
-		context=Context({'Test':ret.replace('\n','<BR/>')})
-		return HttpResponse(template.render(context))
-	else:
-		
-		return render(request, 'Login.htm')
-			
-
+	conn.execute(sql);
+	conn.commit();
+	template=loader.get_template('Results.htm')
+	context=Context({'Test':ret.replace('\n','<BR/>')})
+	return HttpResponse(template.render(context))
+	
 class CurrentClass(View):
 	def get(self, request, *args, **kwargs):	
 		import os.path
