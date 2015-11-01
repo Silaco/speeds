@@ -40,9 +40,12 @@ def login(request):
 	if 'user' in request.POST:
 		name=request.POST['user']
 		pwd=request.POST['pwd']
-		request.session.set_test_cookie()
-		message = 'Hello '+name
-		get(request)
+		
+		if name=='testuser' && pwd='testpwd':
+			request.session.set_test_cookie()
+			message = 'Hello '+name
+			get(request)
+		message = 'Invalid.'
 	else:
 		message = 'You submitted an empty form.'
 	return HttpResponse(message)
