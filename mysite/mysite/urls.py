@@ -17,5 +17,6 @@ urlpatterns = [
 	url(r'^index/$', index, name='new-view11q'),
 	url(r'^login/$', login, name='login-view11'),
 	url(r'^check/$', check, name='check'),
+	url(r'^', index, name='home'),
 ]
 
