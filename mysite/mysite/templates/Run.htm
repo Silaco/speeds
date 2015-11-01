@@ -1,6 +1,6 @@
 <html>
 	<body>
-		<form action="/check/" method="post">{% csrf_token %}
+		<form action="/Execute/" method="get">{% csrf_token %}
 		<table cellpadding='5' cellspacing='5' width='100%' style='background-color:gray'>
 			<tr>			
 			<td align='center'>
@@ -27,7 +27,7 @@
 								<td>								
 								<select> 
 									{% for a in Test %}										
-									<option value="{{ a  }}">{{ a  }}</option>									
+									<option name="Name" value="{{ a  }}">{{ a  }}</option>									
 									{% endfor %}										
 								</select> 									
 								</td>
@@ -38,14 +38,14 @@
 								</td>
 								<td>								
 								<select> 
-									{% for a in Test %}										
-									<option value="{{ a  }}">{{ a  }}</option>									
+									{% for a in value %}										
+									<option name="Group" value="{{ a  }}">{{ a  }}</option>									
 									{% endfor %}										
 								</select> 									
 								</td>
 								</tr>
 								<tr>
-								<td></td><td><input type="submit" value="category"></td>
+								<td></td><td><input type="submit" value="Execute"></td>
 								</tr>
 							</table>
 						</td>

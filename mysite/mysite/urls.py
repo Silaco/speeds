@@ -3,9 +3,9 @@ from django.conf.urls import url
 # from mysite.views import MyView
 # from mysite.views import CurrentClass
 # from mysite.views import Simple
-from mysite.views import LoggedIn
+# from mysite.views import LoggedIn
 # from mysite.views import AnsibleInvoke1
-from mysite.views import Login,get,login,index,check,saveHost
+from mysite.views import Login,get,login,index,check,saveHost,Hosts
 
 urlpatterns = [
     # url(r'^hello/$', MyView.as_view(), name='my-view'),
@@ -17,8 +17,9 @@ urlpatterns = [
 	url(r'^index/$', index, name='new-view11q'),
 	url(r'^login/$', login, name='login-view11'),
 	url(r'^check/$', check, name='check'),
-	url(r'^', index, name='home'),
-	url(r'^saveHost/$', saveHost, name='SaveHost'),
-	
+	# url(r'^', index, name='home'),
+	url(r'^host/$', Hosts, name='SaveHost'),
+	url(r'^submithost/$', saveHost, name='SaveHost'),
+	url(r'^Execute/$', get, name='Execute'),
 ]
 
