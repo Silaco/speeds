@@ -52,11 +52,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'mysite.urls'
 PROJECT_DIR = os.path.dirname(__file__)
-
+tt=os.path.join(PROJECT_DIR, 'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',        
         'APP_DIRS': True,
+		'DIRS': [tt],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -68,9 +69,7 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATE_DIRS = (       
-                  os.path.join(PROJECT_DIR, 'templates'),
-)
+
  
 WSGI_APPLICATION = 'mysite.wsgi.application'
 

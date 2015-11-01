@@ -22,6 +22,15 @@ def index(request):
 	if request.session.test_cookie_worked():
 		return render(request, 'Hosts.htm')
 	return render(request, 'Login.htm')
+	
+def check(request):	
+	template=loader.get_template('Run.htm')
+	a=range(1,100)
+	import os
+	name=os.getcwd() 
+	context=Context({'Test':a,'value':name})
+	return HttpResponse(template.render(context))
+	
 def login(request):
 	message = 'You submitted an empty form.'
 	# if request.session.test_cookie_worked():
