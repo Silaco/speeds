@@ -139,12 +139,14 @@ def get(request):
 	hosts = NamedTemporaryFile(delete=False)
 	hosts.write(bytes(rendered_inventory,'UTF-8'))
 	hosts.close()
-	import commands
+	import subprocess
 	name=os.getcwd() 
 	name=name+"/mysite/playbooks/"
 	
 	name=name+playBook
-	ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
+	# subprocess.call("mycmd" + " myarg", shell=True)
+	ret=subprocess.check_output("ansible-playbook "+name+" -i "+hosts.name, shell=False)
+	# ret = commands.getoutput()
 	ret +="\n\n\nansible-playbook "+name+" -i "+hosts.name
 	# print ret
 	log=ret
