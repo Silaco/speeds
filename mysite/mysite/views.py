@@ -137,16 +137,14 @@ def get(request):
 
 	# Create a temporary file and write the template string to it
 	hosts = NamedTemporaryFile(delete=False)
-	hosts.write(bytes(rendered_inventory,'UTF-8'))
+	hosts.write(rendered_inventory)
 	hosts.close()
-	import subprocess
+	import commands
 	name=os.getcwd() 
 	name=name+"/mysite/playbooks/"
 	
 	name=name+playBook
-	# subprocess.call("mycmd" + " myarg", shell=True)
-	ret=subprocess.check_output("ansible-playbook "+name+" -i "+hosts.name, shell=False)
-	# ret = commands.getoutput()
+	ret = commands.getoutput("ansible-playbook "+name+" -i "+hosts.name)
 	ret +="\n\n\nansible-playbook "+name+" -i "+hosts.name
 	# print ret
 	log=ret
