@@ -137,7 +137,7 @@ def get(request):
 
 	# Create a temporary file and write the template string to it
 	hosts = NamedTemporaryFile(delete=False)
-	hosts.write(rendered_inventory)
+	hosts.write(bytes(rendered_inventory,'UTF-8'))
 	hosts.close()
 	import commands
 	name=os.getcwd() 
