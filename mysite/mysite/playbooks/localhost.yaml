@@ -1,6 +1,5 @@
 ---
-- hosts: current 
-  connection: local
+- hosts: 127.0.0.1   
   tasks:
   - name: checking ping
     shell: hostname
