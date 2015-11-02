@@ -1,0 +1,6 @@
+---
+- hosts: current 
+  connection: local
+  tasks:
+  - name: checking ping
+    shell: hostname
